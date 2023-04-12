@@ -16,6 +16,8 @@
 ## Follow up tasks
 
 - prod - setup env vars
+- prod - improved logging
+- prod - hide metrics page
 - store user information in context or reducer upon login success
 - use react routes instead of different views when logged in
 - call a real authentication service
