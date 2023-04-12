@@ -1,4 +1,4 @@
-module github.com/joejbh/user-login-code-challenge
+module user-login-code-challenge
 
 go 1.20
 

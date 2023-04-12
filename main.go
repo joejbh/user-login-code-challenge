@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 
+	"user-login-code-challenge/routes"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/spf13/viper"
@@ -15,11 +17,7 @@ func main() {
 
 	app.Use(cors.New())
 
-	app.Post("/api/login", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{
-			"foo": "bar",
-		})
-	})
+	routes.Setup(app)
 
 	log.Fatal(app.Listen(":" + viper.GetString("PORT")))
 }
