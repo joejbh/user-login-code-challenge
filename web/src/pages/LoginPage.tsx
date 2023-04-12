@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Box, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { LoginForm } from "../components/LoginForm";
+import { LoginForm, User } from "../components/LoginForm";
 
 export default function LoginPage() {
+  const [user, setUser] = useState<User | null>(null);
+
   return (
     <Box
       sx={{
@@ -13,13 +15,21 @@ export default function LoginPage() {
         alignItems: "center",
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5">
-        Sign in
-      </Typography>
-      <LoginForm />
+      {!!user ? (
+        <Typography component="h1" variant="h5">
+          Hello, {user.username}
+        </Typography>
+      ) : (
+        <>
+          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <LoginForm onSuccess={setUser} />
+        </>
+      )}
     </Box>
   );
 }
