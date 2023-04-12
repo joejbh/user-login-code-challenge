@@ -6,7 +6,7 @@
 
 # Assumptions
 
-- Actual authentication was not needed for this exercise according to Andrew Owen. I would likely use a identity service instead of somethin in-house, hence why I didn't bother implementing a local db with hashed pw's etc.
+- Actual authentication was not needed for this exercise according to Andrew Owen. I would likely use a identity service instead of something in-house, hence why I didn't bother implementing a local db with hashed pw's etc.
 - I did not return auth tokens or cookie to FE since the instructions only said present success or failure based on the user/pw
 
 # Additional Notes
