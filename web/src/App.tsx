@@ -1,16 +1,29 @@
 import React from "react";
 import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+  })
+  .required();
+
+type FormData = yup.InferType<typeof schema>;
 
 function App() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
 
   return (
     <Box
@@ -27,26 +40,35 @@ function App() {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        sx={{ mt: 1 }}
+      >
         <TextField
           margin="normal"
           required
           fullWidth
           id="email"
           label="Email Address"
-          name="email"
           autoComplete="email"
           autoFocus
+          error={!!errors.email}
+          helperText={errors.email && <span>{errors.email.message}</span>}
+          {...register("email", { required: true })}
         />
         <TextField
           margin="normal"
           required
           fullWidth
-          name="password"
           label="Password"
           type="password"
           id="password"
           autoComplete="current-password"
+          error={!!errors.password}
+          helperText={errors.password && <span>{errors.password.message}</span>}
+          {...register("password", { required: true })}
         />
         <Button
           type="submit"
